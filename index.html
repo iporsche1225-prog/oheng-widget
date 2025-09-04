@@ -3,66 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나의 오행 알아보기</title>
+    <title>🔮 사주 오행 & 우주 행성 시스템</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="content-wrapper">
-        <div class="container">
-            <h1>🔮 나의 사주 오행 확인하기</h1>
-            <p class="description">태어난 연월일시를 입력하면 사주팔자의 기본 오행을 알려드립니다.</p>
+    <div id="canvas-container"></div>
+    
+    <div class="main-container">
+        <div class="card">
+            <h1>🔮 사주 오행 & 우주 행성 시스템</h1>
+            <p class="subtitle">생년월일시를 입력하면 당신의 사주와 연결된 행성을 보여드립니다</p>
             
-            <div class="input-grid">
-                <input type="number" id="year" placeholder="태어난 연도 (예: 1990)">
-                <input type="number" id="month" placeholder="태어난 월 (예: 7)">
-                <input type="number" id="day" placeholder="태어난 일 (예: 15)">
-                <select id="hour">
-                    <option value="23">23:30 ~ 01:29 (자시)</option>
-                    <option value="1">01:30 ~ 03:29 (축시)</option>
-                    <option value="3">03:30 ~ 05:29 (인시)</option>
-                    <option value="5">05:30 ~ 07:29 (묘시)</option>
-                    <option value="7">07:30 ~ 09:29 (진시)</option>
-                    <option value="9">09:30 ~ 11:29 (사시)</option>
-                    <option value="11">11:30 ~ 13:29 (오시)</option>
-                    <option value="13">13:30 ~ 15:29 (미시)</option>
-                    <option value="15">15:30 ~ 17:29 (신시)</option>
-                    <option value="17">17:30 ~ 19:29 (유시)</option>
-                    <option value="19">19:30 ~ 21:29 (술시)</option>
-                    <option value="21">21:30 ~ 23:29 (해시)</option>
-                </select>
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <label for="year">출생년도</label>
+                    <input type="number" id="year" min="1900" max="2100" placeholder="예: 1990">
+                </div>
+                <div class="input-wrapper">
+                    <label for="month">월</label>
+                    <select id="month">
+                        <option value="">선택</option>
+                        <option value="1">1월</option>
+                        <option value="2">2월</option>
+                        <option value="3">3월</option>
+                        <option value="4">4월</option>
+                        <option value="5">5월</option>
+                        <option value="6">6월</option>
+                        <option value="7">7월</option>
+                        <option value="8">8월</option>
+                        <option value="9">9월</option>
+                        <option value="10">10월</option>
+                        <option value="11">11월</option>
+                        <option value="12">12월</option>
+                    </select>
+                </div>
+                <div class="input-wrapper">
+                    <label for="day">일</label>
+                    <input type="number" id="day" min="1" max="31" placeholder="예: 15">
+                </div>
+                <div class="input-wrapper">
+                    <label for="hour">시</label>
+                    <select id="hour">
+                        <option value="">모름</option>
+                        <option value="0">자시 (23:00-01:00)</option>
+                        <option value="1">축시 (01:00-03:00)</option>
+                        <option value="2">인시 (03:00-05:00)</option>
+                        <option value="3">묘시 (05:00-07:00)</option>
+                        <option value="4">진시 (07:00-09:00)</option>
+                        <option value="5">사시 (09:00-11:00)</option>
+                        <option value="6">오시 (11:00-13:00)</option>
+                        <option value="7">미시 (13:00-15:00)</option>
+                        <option value="8">신시 (15:00-17:00)</option>
+                        <option value="9">유시 (17:00-19:00)</option>
+                        <option value="10">술시 (19:00-21:00)</option>
+                        <option value="11">해시 (21:00-23:00)</option>
+                    </select>
+                </div>
             </div>
             
-            <button onclick="calculateSaju()">결과 확인하기</button>
+            <button onclick="calculateSaju()">🌌 사주 오행과 행성 확인하기</button>
             
-            <div id="result" class="hidden">
-                <h2>당신의 사주팔자</h2>
-                <table class="saju-table">
-                    <tr>
-                        <th>시주(時柱)</th>
-                        <th>일주(日柱)</th>
-                        <th>월주(月柱)</th>
-                        <th>연주(年柱)</th>
-                    </tr>
-                    <tr>
-                        <td id="hour-pillar"></td>
-                        <td id="day-pillar"></td>
-                        <td id="month-pillar"></td>
-                        <td id="year-pillar"></td>
-                    </tr>
-                </table>
-                <h2>나의 오행 분포</h2>
-                <div class="ohaeng-grid">
-                    <div class="ohaeng-item wood">목(木): <span id="wood-count">0</span>개</div>
-                    <div class="ohaeng-item fire">화(火): <span id="fire-count">0</span>개</div>
-                    <div class="ohaeng-item earth">토(土): <span id="earth-count">0</span>개</div>
-                    <div class="ohaeng-item metal">금(金): <span id="metal-count">0</span>개</div>
-                    <div class="ohaeng-item water">수(水): <span id="water-count">0</span>개</div>
+            <div id="result" class="result-section">
+                <div class="saju-display">
+                    <h3 style="text-align: center; color: #8a2be2; margin-bottom: 20px;">📜 당신의 사주팔자</h3>
+                    <div class="saju-grid">
+                        <div class="pillar">
+                            <div class="pillar-title">시주(時柱)</div>
+                            <div id="hour-stem" class="pillar-char">-</div>
+                            <div id="hour-branch" class="pillar-char">-</div>
+                        </div>
+                        <div class="pillar">
+                            <div class="pillar-title">일주(日柱)</div>
+                            <div id="day-stem" class="pillar-char">-</div>
+                            <div id="day-branch" class="pillar-char">-</div>
+                        </div>
+                        <div class="pillar">
+                            <div class="pillar-title">월주(月柱)</div>
+                            <div id="month-stem" class="pillar-char">-</div>
+                            <div id="month-branch" class="pillar-char">-</div>
+                        </div>
+                        <div class="pillar">
+                            <div class="pillar-title">연주(年柱)</div>
+                            <div id="year-stem" class="pillar-char">-</div>
+                            <div id="year-branch" class="pillar-char">-</div>
+                        </div>
+                    </div>
                 </div>
-                <div id="analysis"></div>
-                <div id="ilgan-analysis"></div>
+                
+                <div class="oheng-display">
+                    <h3 style="text-align: center; color: #8a2be2;">🌟 오행 분포</h3>
+                    <div class="oheng-grid">
+                        <div class="oheng-item">
+                            <div class="oheng-name wood">木</div>
+                            <div id="wood-count" class="oheng-count">0</div>
+                        </div>
+                        <div class="oheng-item">
+                            <div class="oheng-name fire">火</div>
+                            <div id="fire-count" class="oheng-count">0</div>
+                        </div>
+                        <div class="oheng-item">
+                            <div class="oheng-name earth">土</div>
+                            <div id="earth-count" class="oheng-count">0</div>
+                        </div>
+                        <div class="oheng-item">
+                            <div class="oheng-name metal">金</div>
+                            <div id="metal-count" class="oheng-count">0</div>
+                        </div>
+                        <div class="oheng-item">
+                            <div class="oheng-name water">水</div>
+                            <div id="water-count" class="oheng-count">0</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="planet-info">
+                    <div class="planet-title">🪐 당신의 행성</div>
+                    <div id="planet-description" class="planet-description">
+                        사주를 분석하여 가장 영향력 있는 행성을 표시합니다
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
