@@ -7,57 +7,60 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>🔮 나의 사주 오행 확인하기</h1>
-        <p class="description">태어난 연월일시를 입력하면 사주팔자의 기본 오행을 알려드립니다.</p>
-        
-        <div class="input-grid">
-            <input type="number" id="year" placeholder="태어난 연도 (예: 1990)">
-            <input type="number" id="month" placeholder="태어난 월 (예: 7)">
-            <input type="number" id="day" placeholder="태어난 일 (예: 15)">
-            <select id="hour">
-                <option value="23">23:30 ~ 01:29 (자시)</option>
-                <option value="1">01:30 ~ 03:29 (축시)</option>
-                <option value="3">03:30 ~ 05:29 (인시)</option>
-                <option value="5">05:30 ~ 07:29 (묘시)</option>
-                <option value="7">07:30 ~ 09:29 (진시)</option>
-                <option value="9">09:30 ~ 11:29 (사시)</option>
-                <option value="11">11:30 ~ 13:29 (오시)</option>
-                <option value="13">13:30 ~ 15:29 (미시)</option>
-                <option value="15">15:30 ~ 17:29 (신시)</option>
-                <option value="17">17:30 ~ 19:29 (유시)</option>
-                <option value="19">19:30 ~ 21:29 (술시)</option>
-                <option value="21">21:30 ~ 23:29 (해시)</option>
-            </select>
-        </div>
-        
-        <button onclick="calculateSaju()">결과 확인하기</button>
-        
-        <div id="result" class="hidden">
-            <h2>당신의 사주팔자</h2>
-            <table class="saju-table">
-                <tr>
-                    <th>시주(時柱)</th>
-                    <th>일주(日柱)</th>
-                    <th>월주(月柱)</th>
-                    <th>연주(年柱)</th>
-                </tr>
-                <tr>
-                    <td id="hour-pillar"></td>
-                    <td id="day-pillar"></td>
-                    <td id="month-pillar"></td>
-                    <td id="year-pillar"></td>
-                </tr>
-            </table>
-            <h2>나의 오행 분포</h2>
-            <div class="ohaeng-grid">
-                <div class="ohaeng-item wood">목(木): <span id="wood-count">0</span>개</div>
-                <div class="ohaeng-item fire">화(火): <span id="fire-count">0</span>개</div>
-                <div class="ohaeng-item earth">토(土): <span id="earth-count">0</span>개</div>
-                <div class="ohaeng-item metal">금(金): <span id="metal-count">0</span>개</div>
-                <div class="ohaeng-item water">수(水): <span id="water-count">0</span>개</div>
+    <div class="content-wrapper">
+        <div class="container">
+            <h1>🔮 나의 사주 오행 확인하기</h1>
+            <p class="description">태어난 연월일시를 입력하면 사주팔자의 기본 오행을 알려드립니다.</p>
+            
+            <div class="input-grid">
+                <input type="number" id="year" placeholder="태어난 연도 (예: 1990)">
+                <input type="number" id="month" placeholder="태어난 월 (예: 7)">
+                <input type="number" id="day" placeholder="태어난 일 (예: 15)">
+                <select id="hour">
+                    <option value="23">23:30 ~ 01:29 (자시)</option>
+                    <option value="1">01:30 ~ 03:29 (축시)</option>
+                    <option value="3">03:30 ~ 05:29 (인시)</option>
+                    <option value="5">05:30 ~ 07:29 (묘시)</option>
+                    <option value="7">07:30 ~ 09:29 (진시)</option>
+                    <option value="9">09:30 ~ 11:29 (사시)</option>
+                    <option value="11">11:30 ~ 13:29 (오시)</option>
+                    <option value="13">13:30 ~ 15:29 (미시)</option>
+                    <option value="15">15:30 ~ 17:29 (신시)</option>
+                    <option value="17">17:30 ~ 19:29 (유시)</option>
+                    <option value="19">19:30 ~ 21:29 (술시)</option>
+                    <option value="21">21:30 ~ 23:29 (해시)</option>
+                </select>
             </div>
-            <p id="analysis"></p>
+            
+            <button onclick="calculateSaju()">결과 확인하기</button>
+            
+            <div id="result" class="hidden">
+                <h2>당신의 사주팔자</h2>
+                <table class="saju-table">
+                    <tr>
+                        <th>시주(時柱)</th>
+                        <th>일주(日柱)</th>
+                        <th>월주(月柱)</th>
+                        <th>연주(年柱)</th>
+                    </tr>
+                    <tr>
+                        <td id="hour-pillar"></td>
+                        <td id="day-pillar"></td>
+                        <td id="month-pillar"></td>
+                        <td id="year-pillar"></td>
+                    </tr>
+                </table>
+                <h2>나의 오행 분포</h2>
+                <div class="ohaeng-grid">
+                    <div class="ohaeng-item wood">목(木): <span id="wood-count">0</span>개</div>
+                    <div class="ohaeng-item fire">화(火): <span id="fire-count">0</span>개</div>
+                    <div class="ohaeng-item earth">토(土): <span id="earth-count">0</span>개</div>
+                    <div class="ohaeng-item metal">금(金): <span id="metal-count">0</span>개</div>
+                    <div class="ohaeng-item water">수(水): <span id="water-count">0</span>개</div>
+                </div>
+                <div id="analysis"></div>
+                <div id="ilgan-analysis"></div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
