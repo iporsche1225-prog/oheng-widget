@@ -1,19 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+h1 {
+    color: #4a4e69;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.description {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+button {
+    background-color: #5a7dcb;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4a68a8;
+}
+
+#result {
+    margin-top: 30px;
+    text-align: left;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+.hidden {
+    display: none;
+}
+
+h2 {
+    text-align: center;
+    color: #4a4e69;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.saju-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+}
+
+.saju-table th, .saju-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.saju-table th {
+    background-color: #f8f9fa;
+}
+
+.ohaeng-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ohaeng-item {
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+.wood { background-color: #4CAF50; }
+.fire { background-color: #F44336; }
+.earth { background-color: #FFC107; }
+.metal { background-color: #BDBDBD; }
+.water { background-color: #2196F3; }
+
+#analysis {
+    margin-top: 20px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    line-height: 1.6;
+}
+
+#ilgan-analysis {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-top: 2px solid #5a7dcb;
+    border-radius: 0 0 8px 8px;
+}
+
+#ilgan-analysis h3 {
+    margin-top: 0;
+    color: #4a4e69;
+    text-align: center;
+}
+
+#ilgan-analysis p {
+    line-height: 1.7;
+    text-align: justify;
+}
+
 /* ===== 동적 배경 애니메이션 코드 시작 ===== */
 
-/* 1. 배경 이미지가 아주 천천히 움직이는 애니메이션 효과 정의 */
 @keyframes slow-pan {
     0% { background-position: 55% 55%; }
     100% { background-position: 45% 45%; }
 }
 
-/* 2. 기존 body 스타일 보강 */
 body {
     position: relative;
     background-color: #0A192F;
-    transition: background-image 1.5s ease-in-out; /* 배경 부드럽게 바뀌는 효과 */
+    transition: background-image 1.5s ease-in-out;
 }
 
-/* 3. 배경 이미지를 담을 가상 레이어 생성 */
 body::before {
     content: '';
     position: fixed;
@@ -25,15 +173,11 @@ body::before {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    
-    /* 애니메이션 적용! 50초 동안 무한 반복, 부드럽게 움직임 */
     animation: slow-pan 50s alternate infinite ease-in-out;
-
-    opacity: 0; /* 기본적으로는 숨김 */
-    transition: opacity 1.5s ease-in-out; /* 배경이 부드럽게 나타나는 효과 */
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
 }
 
-/* 4. 어두운 필터 레이어 (기존 코드와 동일) */
 body::after {
     content: '';
     position: fixed;
@@ -45,7 +189,6 @@ body::after {
     z-index: -1;
 }
 
-/* 5. 각 행성 및 천체별 배경 이미지 지정 */
 body.bg-sun::before      { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMjEy/MDAxNzI1NDg3ODg3NTQw.G0t9k4D5oG9q8k2K4d0p48E9Q83y5nFwO1-pE8963JIg.9z45eH777OQ72P0K0P_27V0S3C2j37iK83iHw9XmXgMg.JPEG/JackMorrison77_A_breathtakingly_detailed_image_of_the_sun_capt_033d5267-336c-482d-8ac1-177d643c72b2.jpg?type=w800'); opacity: 1; }
 body.bg-mercury::before  { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMTYy/MDAxNzI1NDg3ODg4NTM4.dJ4w01_Vq4F2X03R6uF10_q1U2o264R2E2P6T6L7nQEg.TjX8E7g8W8k3p1B0D8X7E0l6m3Q7t9O6o5R3S3Z3bY4g.JPEG/JackMorrison77_A_photorealistic_image_of_Mercury_the_smallest_p_177b8a78-b118-4720-a6ad-45e3f1624c8d.jpg?type=w800'); opacity: 1; }
 body.bg-venus::before    { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMjY2/MDAxNzI1NDg3ODkwMDMz.g6W6I5P1F6j4T5f4P4v1d6f7W8y8X9B9r8q7I8T9oMwg.z5P6i5L5s5X5i4o4N4R4g3q3W2o1T1U1C1l1U1c1b1Eg.JPEG/JackMorrison77_A_photorealistic_image_of_Venus_the_second_plane_59663dd9-2900-4104-b9d9-69f8c47b534b.jpg?type=w800'); opacity: 1; }
@@ -59,4 +202,9 @@ body.bg-pluto::before    { background-image: url('https://mblogthumb-phinf.pstat
 body.bg-galaxy::before   { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMjQ5/MDAxNzI1NDg3OTQ3NzU1.a6j6F6c6t6i6v6p6n6N6i6M6I6g6i6O6k6G6x6O6h6Yg.u8b8K8l8l8J8c8v8n8v8c8n8t8l8n8s8v8o8N8J8J8Ig.JPEG/JackMorrison77_A_breathtaking_view_of_the_Milky_Way_galaxy_as__21e25774-7e78-43e6-8e5f-b52b3149ba18.jpg?type=w800'); opacity: 1; }
 body.bg-jameswebb::before{ background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMTgw/MDAxNzI1NDg3OTQ5MzI2.m5y5x5M5g5o5c5b5n5E5k5v5I5t5k5Y5p5i5l5u5o5kg.R7e7s7T7s7u7u7t7r7g7x7p7l7q7d7u7g7e7h7l7E7Ug.JPEG/JackMorrison77_The_James_Webb_Space_Telescope_drifting_graceful_3f76903f-4e00-47b2-bd78-004419992d9f.jpg?type=w800'); opacity: 1; }
 
-/* ===== 동적 배경 애니메이션 코드 끝 ===== */
+.content-wrapper {
+    color: #CCD6F6;
+    padding: 50px;
+    position: relative;
+    z-index: 1;
+}
