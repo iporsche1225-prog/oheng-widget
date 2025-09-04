@@ -1,210 +1,272 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
-
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+* {
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.container {
-    background-color: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 600px;
-    text-align: center;
+    height: 100%;
+    z-index: 1;
+}
+
+.main-container {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(20,0,50,0.7));
+}
+
+.card {
+    background: rgba(20, 10, 40, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(138, 43, 226, 0.3),
+                0 0 100px rgba(138, 43, 226, 0.1) inset;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    max-width: 900px;
+    width: 100%;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 h1 {
-    color: #4a4e69;
-    font-size: 24px;
+    text-align: center;
+    color: #fff;
     margin-bottom: 10px;
+    font-size: 2.5em;
+    text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+    background: linear-gradient(90deg, #8a2be2, #ff6b9d, #feca57, #48dbfb, #8a2be2);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 3s linear infinite;
 }
 
-.description {
-    color: #666;
-    margin-bottom: 25px;
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
 }
 
-.input-grid {
+.subtitle {
+    text-align: center;
+    color: #b8b8ff;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+}
+
+.input-group {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: #b8b8ff;
+    margin-bottom: 5px;
+    font-size: 0.9em;
 }
 
 input, select {
-    width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
+    border: 2px solid rgba(138, 43, 226, 0.3);
+    border-radius: 10px;
+    background: rgba(20, 10, 40, 0.8);
+    color: #fff;
     font-size: 16px;
+    transition: all 0.3s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #8a2be2;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
 }
 
 button {
-    background-color: #5a7dcb;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #8a2be2, #5f27cd);
     color: white;
-    padding: 12px 25px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
 }
 
 button:hover {
-    background-color: #4a68a8;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(138, 43, 226, 0.5);
 }
 
-#result {
-    margin-top: 30px;
-    text-align: left;
-    padding: 20px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-}
-
-.hidden {
+.result-section {
     display: none;
+    animation: fadeIn 0.5s;
 }
 
-h2 {
-    text-align: center;
-    color: #4a4e69;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.saju-table {
-    width: 100%;
-    border-collapse: collapse;
+.saju-display {
+    background: rgba(30, 20, 60, 0.8);
+    border-radius: 15px;
+    padding: 25px;
     margin-bottom: 25px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
 }
 
-.saju-table th, .saju-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: center;
-    font-size: 16px;
-}
-
-.saju-table th {
-    background-color: #f8f9fa;
-}
-
-.ohaeng-grid {
+.saju-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
     margin-bottom: 20px;
 }
 
-.ohaeng-item {
+.pillar {
+    text-align: center;
     padding: 15px;
-    border-radius: 8px;
-    color: white;
+    background: rgba(138, 43, 226, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+.pillar-title {
+    color: #8a2be2;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.pillar-char {
+    font-size: 1.8em;
     font-weight: bold;
-    text-align: center;
+    color: #fff;
+    text-shadow: 0 0 10px currentColor;
 }
-.wood { background-color: #4CAF50; }
-.fire { background-color: #F44336; }
-.earth { background-color: #FFC107; }
-.metal { background-color: #BDBDBD; }
-.water { background-color: #2196F3; }
 
-#analysis {
-    margin-top: 20px;
-    background-color: #f8f9fa;
+.oheng-display {
+    background: rgba(30, 20, 60, 0.8);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+.oheng-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.oheng-item {
+    text-align: center;
     padding: 15px;
-    border-radius: 8px;
-    line-height: 1.6;
+    border-radius: 10px;
+    background: rgba(138, 43, 226, 0.1);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    transition: all 0.3s;
 }
 
-#ilgan-analysis {
-    margin-top: 25px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-top: 2px solid #5a7dcb;
-    border-radius: 0 0 8px 8px;
+.oheng-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
 }
 
-#ilgan-analysis h3 {
-    margin-top: 0;
-    color: #4a4e69;
+.oheng-name {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.oheng-count {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.planet-info {
+    background: rgba(30, 20, 60, 0.8);
+    border-radius: 15px;
+    padding: 25px;
+    border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+.planet-title {
+    color: #8a2be2;
+    font-size: 1.3em;
+    margin-bottom: 15px;
     text-align: center;
 }
 
-#ilgan-analysis p {
-    line-height: 1.7;
-    text-align: justify;
+.planet-description {
+    color: #b8b8ff;
+    line-height: 1.6;
+    text-align: center;
 }
 
-/* ===== 동적 배경 애니메이션 코드 시작 ===== */
-
-@keyframes slow-pan {
-    0% { background-position: 55% 55%; }
-    100% { background-position: 45% 45%; }
+.planet-name {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
-body {
-    position: relative;
-    background-color: #0A192F;
-    transition: background-image 1.5s ease-in-out;
-}
+/* 오행별 색상 */
+.wood { color: #4CAF50; }
+.fire { color: #FF5722; }
+.earth { color: #FFC107; }
+.metal { color: #9E9E9E; }
+.water { color: #2196F3; }
 
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    animation: slow-pan 50s alternate infinite ease-in-out;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-}
-
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(10, 25, 47, 0.7);
-    z-index: -1;
-}
-
-body.bg-sun::before      { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMjEy/MDAxNzI1NDg3ODg3NTQw.G0t9k4D5oG9q8k2K4d0p48E9Q83y5nFwO1-pE8963JIg.9z45eH777OQ72P0K0P_27V0S3C2j37iK83iHw9XmXgMg.JPEG/JackMorrison77_A_breathtakingly_detailed_image_of_the_sun_capt_033d5267-336c-482d-8ac1-177d643c72b2.jpg?type=w800'); opacity: 1; }
-body.bg-mercury::before  { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMTYy/MDAxNzI1NDg3ODg4NTM4.dJ4w01_Vq4F2X03R6uF10_q1U2o264R2E2P6T6L7nQEg.TjX8E7g8W8k3p1B0D8X7E0l6m3Q7t9O6o5R3S3Z3bY4g.JPEG/JackMorrison77_A_photorealistic_image_of_Mercury_the_smallest_p_177b8a78-b118-4720-a6ad-45e3f1624c8d.jpg?type=w800'); opacity: 1; }
-body.bg-venus::before    { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMjY2/MDAxNzI1NDg3ODkwMDMz.g6W6I5P1F6j4T5f4P4v1d6f7W8y8X9B9r8q7I8T9oMwg.z5P6i5L5s5X5i4o4N4R4g3q3W2o1T1U1C1l1U1c1b1Eg.JPEG/JackMorrison77_A_photorealistic_image_of_Venus_the_second_plane_59663dd9-2900-4104-b9d9-69f8c47b534b.jpg?type=w800'); opacity: 1; }
-body.bg-earth::before    { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMjEz/MDAxNzI1NDg3ODkxNzI1.F3l3D4P4b4X4n4W4g4c4l4d4d4D4e4R4g3g3P3Q3r3Ug.v2k2U2S2n2N2o2B2r2V2v2e2O2z2m2B2r2V2x2b2I2Mg.JPEG/JackMorrison77_A_stunning_photorealistic_image_of_Earth_as_see_f51fcb80-60b6-455b-b98a-77c8e6dfd142.jpg?type=w800'); opacity: 1; }
-body.bg-mars::before     { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMTg0/MDAxNzI1NDg3ODkzNTk4.p4n4P4s4P4q4m4j4e4N4M4T4T4m4j4R4f4H4v4c4I4Ag.z8E8r8P8x8B8c8V8o8C8d8L8l8I8g8O8y8z8x8Y8d8Yg.JPEG/JackMorrison77_A_photorealistic_image_of_Mars_the_Red_Planet._c3c4f526-9d33-4f93-bd88-66a9876e6a4b.jpg?type=w800'); opacity: 1; }
-body.bg-jupiter::before  { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMTk5/MDAxNzI1NDg3ODk0OTk4.S5e5V5c5N5R5L5d5K5g5A5I5l5H5d5U5W5g5j5B5X5Ag.g9I9q9N9r9Z9h9J9d9E9c9S9v9S9i9N9q9Q9h9U9u9cg.JPEG/JackMorrison77_A_photorealistic_image_of_Jupiter_the_largest_pl_d4381395-585a-472e-8481-801b6e665e75.jpg?type=w800'); opacity: 1; }
-body.bg-saturn::before   { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMjI5/MDAxNzI1NDg3ODk2MzA3.K6a6n6S6q6X6l6B6t6I6t6k6I6b6v6Q6t6d6t6n6u6Mg.n0b0L0p0c0Z0j0B0s0V0v0P0d0w0r0V0v0L0z0s0t0Qg.JPEG/JackMorrison77_A_photorealistic_image_of_Saturn_famous_for_its_48d56b3b-857e-46bd-8e5f-561b8f52086e.jpg?type=w800'); opacity: 1; }
-body.bg-uranus::before   { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMjAg/MDAxNzI1NDg3ODk3NTM0.C7a7d7V7t7b7j7c7n7H7q7p7T7f7t7S7n7j7h7r7a7Mg.L1r1r1o1i1n1l1y1r1f1i1e1i1w1z1m1b1s1c1c1l1Hg.JPEG/JackMorrison77_A_photorealistic_image_of_Uranus_the_ice_giant_40212001-f2f2-4ca2-8877-33f7c9e0569a.jpg?type=w800'); opacity: 1; }
-body.bg-neptune::before  { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMjcg/MDAxNzI1NDg3OTM3NDQz.I1s1z1b1J1c1g1n1f1D1d1x1r1p1d1U1r1g1c1F1h1Yg.b-y-z-C-A-k-r-i-j-J-B-z-b-k-I-F-I-g-f-B-Gg.JPEG/JackMorrison77_A_photorealistic_image_of_Neptune_the_dark_cold__618151ed-44d7-4623-a267-33a7f8042455.jpg?type=w800'); opacity: 1; }
-body.bg-pluto::before    { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMTgg/MDAxNzI1NDg3OTQwNzM4.f2D2c2s2l2I2n2k2h2c2C2G2p2H2t2U2c2n2i2B2a2Ag.Q-v-R-p-z-A-y-r-E-b-D-r-B-z-i-R-A-y-z-i-Jg.JPEG/JackMorrison77_A_photorealistic_image_of_Pluto_a_dwarf_planet_i_73322744-2bd8-4229-873b-e0161476ac71.jpg?type=w800'); opacity: 1; }
-body.bg-galaxy::before   { background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMjQ5/MDAxNzI1NDg3OTQ3NzU1.a6j6F6c6t6i6v6p6n6N6i6M6I6g6i6O6k6G6x6O6h6Yg.u8b8K8l8l8J8c8v8n8v8c8n8t8l8n8s8v8o8N8J8J8Ig.JPEG/JackMorrison77_A_breathtaking_view_of_the_Milky_Way_galaxy_as__21e25774-7e78-43e6-8e5f-b52b3149ba18.jpg?type=w800'); opacity: 1; }
-body.bg-jameswebb::before{ background-image: url('https://mblogthumb-phinf.pstatic.net/MjAyNTA5MDVfMTgw/MDAxNzI1NDg3OTQ5MzI2.m5y5x5M5g5o5c5b5n5E5k5v5I5t5k5Y5p5i5l5u5o5kg.R7e7s7T7s7u7u7t7r7g7x7p7l7q7d7u7g7e7h7l7E7Ug.JPEG/JackMorrison77_The_James_Webb_Space_Telescope_drifting_graceful_3f76903f-4e00-47b2-bd78-004419992d9f.jpg?type=w800'); opacity: 1; }
-
-.content-wrapper {
-    color: #CCD6F6;
-    padding: 50px;
-    position: relative;
-    z-index: 1;
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8em;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .saju-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .oheng-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .input-group {
+        grid-template-columns: 1fr;
+    }
 }
